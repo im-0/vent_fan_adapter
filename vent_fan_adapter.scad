@@ -236,7 +236,7 @@ module nut_places()
 module fan_mount(is_top_part)
 {
 	difference() {
-		linear_extrude(height=PLATE_THICKNESS)
+		linear_extrude(height=PLATE_THICKNESS, convexity=2)
 			mounting_plate_2d();
 		translate([0.0, 0.0, NET_HEIGHT])
 			cylinder(
