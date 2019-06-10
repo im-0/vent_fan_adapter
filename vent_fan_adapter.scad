@@ -110,7 +110,7 @@ function hex_cc_spiral_tail(cur_spiral, radius) =
 				hex_cc_ring(cur_spiral[0], radius)),
 			radius - 1) :
 		cur_spiral;
-		
+
 function hex_cc_spiral(center_cc, radius) = hex_cc_spiral_tail([center_cc], radius);
 
 // TODO: Verify. Not sure about radius calculation.
@@ -129,7 +129,7 @@ module mounting_plate_2d()
 {
 	half_off = SCREW_HOLE_DIST / 2.0;
 	full_hex_width = NET_HOLE_WIDTH + NET_HOLE_SPACING;
-	
+
 	difference() {
 		hull() {
 			for (i = screw_hole_coords()) {
@@ -137,13 +137,13 @@ module mounting_plate_2d()
 					circle(d=ROUNDING_DIAM, $fn=64);
 			}
 		}
-		
+
 		// Holes for airflow.
 		for (xy = hex_circle(full_hex_width, FAN_DIAM / 2.0)) {
 			translate([xy.x, xy.y])
 				hex(NET_HOLE_WIDTH);
 		}
-	
+
 		// Holes for screws.
 		for (x_off = [-1.0, 1.0]) {
 			for (y_off = [-1.0, 1.0]) {
@@ -174,7 +174,7 @@ module pipe_adapter(is_top_part)
 	fitting_height = is_top_part ?
 		PIPE_TOP_FITTING_HEIGHT :
 		PIPE_BOTTOM_FITTING_HEIGHT;
-	
+
 	difference() {
 		union() {
 			cylinder(
@@ -188,14 +188,14 @@ module pipe_adapter(is_top_part)
 					r=top_outer_r,
 					$fn=128);
 		}
-		
+
 		translate([0.0, 0.0, -OS])
 			cylinder(
 				h=PIPE_ADAPTER_HEIGHT + OS,
 				r1=bottom_inner_r,
 				r2=top_inner_r - top_inner_detent,
 				$fn=128);
-		
+
 		translate([0.0, 0.0, PIPE_ADAPTER_HEIGHT - OA])
 			cylinder(
 				h=fitting_height + OA + OS,
@@ -232,7 +232,7 @@ module nut_places()
 		}
 	}
 }
-			
+
 module fan_mount(is_top_part)
 {
 	difference() {
@@ -247,7 +247,7 @@ module fan_mount(is_top_part)
 
 	translate([0.0, 0.0, PLATE_THICKNESS - OA])
 		pipe_adapter(is_top_part);
-	
+
 	// Places for nuts.
 	if (!is_top_part) {
 		nut_places();
